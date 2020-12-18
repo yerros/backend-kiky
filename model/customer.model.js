@@ -1,6 +1,10 @@
 const mongoose = require("mongoose");
 
 const CustomerSchema = mongoose.Schema({
+  createAt: {
+    type: Date,
+    default: Date.now(),
+  },
   customerName: {
     type: String,
     required: true,

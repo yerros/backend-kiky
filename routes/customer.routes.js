@@ -31,4 +31,23 @@ router.post("/", async (req, res) => {
   });
 });
 
+router.delete("/:id", async (req, res) => {
+  try {
+    const deleted = await CustomerModel.findByIdAndDelete({
+      _id: req.params.id,
+    });
+    if (!deleted) {
+      return res.status(404).json({
+        message: "category not found",
+      });
+    }
+    res.status(200).json({
+      msg: "Delete Success",
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Something error found ");
+  }
+});
+
 module.exports = router;
