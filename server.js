@@ -20,6 +20,7 @@ app.use(cors());
 // Router
 app.use("/", require("./routes/index.routes"));
 app.use("/customer", require("./routes/customer.routes"));
+app.use("/order", require("./routes/order.routes"));
 
 app.listen(PORT, () => {
   console.log(`Server Running at port ${PORT}`);
