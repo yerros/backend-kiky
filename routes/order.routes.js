@@ -7,6 +7,12 @@ router.get("/", async (req, res) => {
   res.send(order);
 });
 
+router.get("/:id", async (req, res) => {
+  const id = req.params.id;
+  const order = await OrderModel.findById({ _id: id }).populate("customer");
+  res.send(order);
+});
+
 router.post("/", async (req, res) => {
   const { amount, customer, notes, orderItems } = req.body;
   const order = new OrderModel({
@@ -17,6 +23,16 @@ router.post("/", async (req, res) => {
   });
   await order.save();
   res.send({ status: "success", order });
+});
+
+router.put("/:id", async (req, res) => {
+  const id = req.params.id;
+  const { amount, customer, notes, orderItems, status } = req.body;
+  const order = await OrderModel.findOneAndUpdate(
+    { _id: id },
+    { $set: { amount, customer: customer._id, notes, orderItems, status } }
+  );
+  res.send({ status: "successfuly update", order });
 });
 
 module.exports = router;
